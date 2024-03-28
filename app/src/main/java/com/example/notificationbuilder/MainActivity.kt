@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     val CHANNEL_NAME = "channelName"
     val NOTIF_ID = 0
 
-    @SuppressLint("MissingPermission")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         // Butona basıldığında sendNotification'a title ve text gönderiliyor
         binding.btnShowNotif.setOnClickListener {
-            val title = "Özel Bildirim"
-            val text = "Bu bildirim özel fonksiyondan gönderildi!"
+            val title = "Test Bildirimi"
+            val text = "Bu Bildirim Test Amaçlı Gönderilmiştir."
             sendNotification(title, text, pendingIntent)
         }
     }
