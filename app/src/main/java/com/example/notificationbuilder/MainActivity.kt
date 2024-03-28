@@ -31,29 +31,33 @@ class MainActivity : AppCompatActivity() {
         createNotifChannel()
 
         val intent=Intent(this,MainActivity::class.java)
+
+        // pendingIntent bildirime tıklandığında aktiviteye geri dönmesini sağlıyor
         val pendingIntent = TaskStackBuilder.create(this).run {
             addNextIntentWithParentStack(intent)
             getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
+        // Bildirim oluşturuluyor
         val notif = NotificationCompat.Builder(this,CHANNEL_ID)
             .setContentTitle("Test Bildirim Başlığı")
             .setContentText("Bu bildirim test amaçlı atılmıştır.")
             .setSmallIcon(R.drawable.ic_baseline_info_24)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
+            .setContentIntent(pendingIntent) // pendingIntent burada çağırılıyor
             .build()
 
-
+        // Bildirim yöneticisi oluşturuluyor
         val notifManger = NotificationManagerCompat.from(this)
 
-
+        // Butona basıldığında bildirimi göstermesi ayarlanıyor
         binding.btnShowNotif.setOnClickListener {
             notifManger.notify(NOTIF_ID,notif)
         }
 
     }
 
+    // Bildirim kanalı oluşturma
     private fun createNotifChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT).apply {
